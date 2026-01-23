@@ -1,4 +1,4 @@
-package com.hardik.safehaven.ui.theme
+package com.hardik.safehaven.core.theme
 
 import androidx.compose.ui.graphics.Color
 

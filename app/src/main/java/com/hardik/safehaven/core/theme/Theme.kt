@@ -1,4 +1,4 @@
-package com.hardik.safehaven.ui.theme
+package com.hardik.safehaven.core.theme
 
 import android.app.Activity
 import android.os.Build
