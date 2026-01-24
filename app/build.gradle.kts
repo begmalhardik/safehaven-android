@@ -46,7 +46,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.compose)    // for rememberNavController() ....
+    implementation("androidx.navigation:navigation-compose:2.9.6") // for rememberNavController() ....
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
