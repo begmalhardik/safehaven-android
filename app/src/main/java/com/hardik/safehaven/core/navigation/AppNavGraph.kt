@@ -14,8 +14,6 @@ import com.hardik.safehaven.feature_view.ViewItemScreen
 // II)  Then wire navigation (co-ordinator)
 // III) instead of navigation, magically created screens (separation = testing + sanity)
 
-
-
 @Composable
 fun AppNavGraph(navController: NavHostController) {
 

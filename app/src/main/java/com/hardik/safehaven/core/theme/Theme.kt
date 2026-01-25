@@ -33,6 +33,7 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+// DarkTheme and LighTheme in Action ...
 @Composable
 fun SafeHavenTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
