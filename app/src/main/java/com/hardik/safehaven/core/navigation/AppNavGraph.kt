@@ -2,11 +2,14 @@ package com.hardik.safehaven.core.navigation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.hardik.safehaven.data.repository.SecureItemRepository
 import com.hardik.safehaven.feature_add.AddItemScreen
 import com.hardik.safehaven.feature_home.HomeScreen
+import com.hardik.safehaven.feature_home.HomeViewModel
 import com.hardik.safehaven.feature_view.ViewItemScreen
 
 // what we did -
@@ -15,16 +18,21 @@ import com.hardik.safehaven.feature_view.ViewItemScreen
 // III) instead of navigation, magically created screens (separation = testing + sanity)
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
+fun AppNavGraph(navController: NavHostController, repository: SecureItemRepository) {
 
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
+            val viewModel = remember {
+                HomeViewModel(repository)
+            }
             HomeScreen(
                 onAddClick = { navController.navigate(Screen.AddItem.route) },
-                onViewClick = { navController.navigate(Screen.ViewItem.route) }
+                onItemClick = { itemId ->
+                    navController.navigate(Screen.ViewItem.createRoute(itemId)) },
+                viewModel = viewModel
             )
         }
 
