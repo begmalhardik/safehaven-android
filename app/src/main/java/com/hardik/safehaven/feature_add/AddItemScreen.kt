@@ -1,17 +1,88 @@
 package com.hardik.safehaven.feature_add
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.hardik.safehaven.domain.model.ItemType
 
 @Composable
 fun AddItemScreen(
-    onBack: () -> Unit
+    viewModel: AddItemViewModel,
+    onSave: () -> Unit
 ) {
-    Column(modifier = Modifier.padding(30.dp)) {
-        Text(text = "Add Item Screen")
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        TextField(
+            value = viewModel.title,
+            onValueChange = { viewModel.title = it },
+            label = { Text("Title") }
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        TextField(
+            value = viewModel.content,
+            onValueChange = { viewModel.content = it },
+            label = { Text("Content") }
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        ItemTypeDropdown(
+            selected = viewModel.type,
+            onSelected = { viewModel.type = it }
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+        Button(onClick = {
+            viewModel.saveItem()
+            onSave()
+        }) {
+            Text("Save")
+        }
+    }
+}
+
+@Composable
+fun ItemTypeDropdown(
+    selected: String,
+    onSelected: (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        Button(onClick = { expanded = true }) {
+            Text(selected)
+        }
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            ItemType.entries.forEach {
+                DropdownMenuItem(
+                    text = { Text(it.name) },
+                    onClick = {
+                        onSelected(it.name)
+                        expanded = false
+                    }
+                )
+            }
+        }
     }
 }

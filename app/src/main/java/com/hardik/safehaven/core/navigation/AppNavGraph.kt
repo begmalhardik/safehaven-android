@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hardik.safehaven.data.repository.SecureItemRepository
 import com.hardik.safehaven.feature_add.AddItemScreen
+import com.hardik.safehaven.feature_add.AddItemViewModel
 import com.hardik.safehaven.feature_home.HomeScreen
 import com.hardik.safehaven.feature_home.HomeViewModel
 import com.hardik.safehaven.feature_view.ViewItemScreen
@@ -37,8 +38,15 @@ fun AppNavGraph(navController: NavHostController, repository: SecureItemReposito
         }
 
         composable(Screen.AddItem.route) {
+            val viewModel = remember {
+            AddItemViewModel(repository)
+        }
             AddItemScreen(
-                onBack = { navController.popBackStack() }
+                viewModel,
+                onSave = {
+                    viewModel.saveItem()
+                    navController.popBackStack()
+                }
             )
         }
 
